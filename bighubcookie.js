@@ -121,7 +121,6 @@ function send_cookie_data() {
         utm_medium: Cookies.get("utm_medium"),
         utm_campaign: Cookies.get("utm_campaign"),
         utm_term: Cookies.get("utm_term"),
-        user_id: Cookies.get("user_id")
     };
 
     var cliente = {
@@ -140,7 +139,8 @@ function send_cookie_data() {
     var dataLake = {
         cliente: clienteData,
         form: formData,
-        cookie: cookieUTM
+        cookie: cookieUTM,
+        user_id: Cookies.get("user_id")
     };
 
     var dataTotal = JSON.stringify(dataLake);
@@ -148,7 +148,7 @@ function send_cookie_data() {
     //Add user id to file name
     $a.ajax({
         type: "POST",
-        url: "https://prod-02.centralus.logic.azure.com:443/workflows/33c889efd937451f8d16095d53973f73/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=ocA9ImKZSfx24XkTh0wqW1az_lX-xOzy9l0Ir4DyEPc",
+        url: "https://prod-23.brazilsouth.logic.azure.com:443/workflows/acea5f35e64b4339bcf8c363b8fe0c47/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=AMovljDdB-UIzF7ZX2UpbVam04zEwHnJykVHP5fgA5g",
         data: dataTotal,
         crossDomain: true,
         dataType: "text/plain",
