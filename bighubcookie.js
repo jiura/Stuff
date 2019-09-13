@@ -77,7 +77,7 @@ function get_cookie(cookie_name) {
 
 //Deletes cookie by specified name
 function delete_cookie(name) {
-    document.cookie = name + "=DELETE; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/"
+    document.cookie = name + "=DELETE; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/";
 }
 
 //Checks user frequency and creates cookie with respective values for the parameters
@@ -120,7 +120,8 @@ function send_cookie_data() {
         utm_source: Cookies.get("utm_source"),
         utm_medium: Cookies.get("utm_medium"),
         utm_campaign: Cookies.get("utm_campaign"),
-        utm_term: Cookies.get("utm_term")
+        utm_term: Cookies.get("utm_term"),
+        user_id: Cookies.get("user_id")
     };
 
     var cliente = {
