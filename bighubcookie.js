@@ -138,7 +138,7 @@ function send_cookie_data() {
         cliente: clienteData,
         form: formData,
         cookie: cookieUTM,
-        user_id: Cookies.get("user_id")
+        userid: Cookies.get("user_id")
     };
 
     var dataTotal = JSON.stringify(dataLake);
