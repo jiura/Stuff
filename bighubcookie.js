@@ -88,10 +88,10 @@ function create_cookie() {
 
 //Defines the .serializeObject() JQuery function
 function define_serializeObject() {
-    $a.fn.serializeObject = function () {
+    $.fn.serializeObject = function () {
         var o = {};
         var a = this.serializeArray();
-        $a.each(a, function () {
+        $.each(a, function () {
             if (o[this.name] !== undefined) {
                 if (!o[this.name].push) {
                     o[this.name] = [o[this.name]];
@@ -108,11 +108,11 @@ function define_serializeObject() {
 
 //Sends cookie data to Azure Data Lake through a POST request to a Logic App service
 function send_cookie_data() {
-    var jsonText = JSON.stringify($a('form').serializeObject());
+    var jsonText = JSON.stringify($('form').serializeObject());
     var getUrl = window.location;
     var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
 
-    $a('#result').text(JSON.stringify($a('form').serializeObject()));
+    $('#result').text(JSON.stringify($('form').serializeObject()));
 
     var cookieData = {
         utm_source: Cookies.get("utm_source"),
@@ -144,7 +144,7 @@ function send_cookie_data() {
     var dataTotal = JSON.stringify(dataLake);
 
     //Add user id to file name
-    $a.ajax({
+    $.ajax({
         type: "POST",
         url: "https://prod-23.brazilsouth.logic.azure.com:443/workflows/acea5f35e64b4339bcf8c363b8fe0c47/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=AMovljDdB-UIzF7ZX2UpbVam04zEwHnJykVHP5fgA5g",
         data: dataTotal,
@@ -153,7 +153,7 @@ function send_cookie_data() {
 
         //If a response is received from the server
         success: function (response) {
-            $a("#uploadResponse").append(response);
+            $("#uploadResponse").append(response);
         },
     });
 }
