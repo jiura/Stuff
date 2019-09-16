@@ -88,7 +88,7 @@ function create_cookie() {
 
 //Defines the .serializeObject() JQuery function
 function define_serializeObject() {
-    //$a = jQuery.noConflict();
+    var $a = jQuery.noConflict();
     $a.fn.serializeObject = function () {
         var o = {};
         var a = this.serializeArray();
