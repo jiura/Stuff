@@ -112,7 +112,7 @@ function send_cookie_data() {
     var getUrl = window.location;
     var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
 
-    $a('#result').text(JSON.stringify($('form').serializeObject()));
+    $('#result').text(JSON.stringify($('form').serializeObject()));
 
     var cookieData = {
         utm_source: Cookies.get("utm_source"),
