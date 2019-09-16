@@ -1,11 +1,11 @@
 //Defines variables for current date and cookie expiry date
 var today = new Date();
-var expiry = new Date(today.getTime() + 3600 * 24 * 3600 * 1000)
+var expiry = new Date(today.getTime() + 3600 * 24 * 3600 * 1000);
 
 //Creates unique ID for user
 function uniqueID() {
     return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16))
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
 }
 
 //Checks if user has visited the page before
@@ -22,7 +22,7 @@ function check_cookie() {
     } else {
         user_id = uniqueID();
         user_frequency = 1;
-        Cookies.set("user_frequency", user_frequency.toString(10), 365)
+        Cookies.set("user_frequency", user_frequency.toString(10), 365);
         Cookies.set("user_id", user_id, 365);
     }
 }
@@ -88,12 +88,10 @@ function create_cookie() {
 
 //Defines the .serializeObject() JQuery function
 function define_serializeObject() {
-    var $a = jQuery.noConflict();
-
-    $a.fn.serializeObject = function () {
+    $.fn.serializeObject = function () {
         var o = {};
         var a = this.serializeArray();
-        $a.each(a, function () {
+        $.each(a, function () {
             if (o[this.name] !== undefined) {
                 if (!o[this.name].push) {
                     o[this.name] = [o[this.name]];
@@ -110,17 +108,17 @@ function define_serializeObject() {
 
 //Sends cookie data to Azure Data Lake through a POST request to a Logic App service
 function send_cookie_data() {
-    var jsonText = JSON.stringify($a('form').serializeObject());
+    var jsonText = JSON.stringify($('form').serializeObject());
     var getUrl = window.location;
     var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
 
-    $a('#result').text(JSON.stringify($a('form').serializeObject()));
+    $a('#result').text(JSON.stringify($('form').serializeObject()));
 
     var cookieData = {
         utm_source: Cookies.get("utm_source"),
         utm_medium: Cookies.get("utm_medium"),
         utm_campaign: Cookies.get("utm_campaign"),
-        utm_term: Cookies.get("utm_term"),
+        utm_term: Cookies.get("utm_term")
     };
 
     var cliente = {
@@ -146,7 +144,7 @@ function send_cookie_data() {
     var dataTotal = JSON.stringify(dataLake);
 
     //Add user id to file name
-    $a.ajax({
+    $.ajax({
         type: "POST",
         url: "https://prod-23.brazilsouth.logic.azure.com:443/workflows/acea5f35e64b4339bcf8c363b8fe0c47/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=AMovljDdB-UIzF7ZX2UpbVam04zEwHnJykVHP5fgA5g",
         data: dataTotal,
@@ -155,7 +153,7 @@ function send_cookie_data() {
 
         //If a response is received from the server
         success: function (response) {
-            $a("#uploadResponse").append(response);
+            $("#uploadResponse").append(response);
         },
     });
 }
