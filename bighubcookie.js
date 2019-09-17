@@ -156,6 +156,4 @@ function send_cookie_data() {
             $("#uploadResponse").append(response);
         }
     });
-    
-    $('#TESTETESTE').val('testado');
 }
