@@ -148,9 +148,15 @@ function send_cookie_data(e) {
         type: "POST",
         url: "https://prod-23.brazilsout;h.logic.azure.com:443/workflows/acea5f35e64b4339bcf8c363b8fe0c47/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=AMovljDdB-UIzF7ZX2UpbVam04zEwHnJykVHP5fgA5g",
         contentType: "application/json",
-        data: dataLake
+        data: JSON.stringify(dataLake);
     })
-    .done(function( html ) {
-        console.log('Done');
+    .done(function(data) {
+        console.log( "success" );
+    })
+    .fail(function(error) {
+        console.log( error );
+    })
+    .always(function(data) {
+        console.log( "complete" );
     });
 }
