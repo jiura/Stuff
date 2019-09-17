@@ -142,7 +142,7 @@ function send_cookie_data() {
     };
 
     var dataTotal = JSON.stringify(dataLake);
-$('#TESTETESTE').val('testado');
+    
     //Add user id to file name
     $.ajax({
         type: "POST",
@@ -154,6 +154,8 @@ $('#TESTETESTE').val('testado');
         //If a response is received from the server
         success: function (response) {
             $("#uploadResponse").append(response);
-        },
+        }
     });
+    
+    $('#TESTETESTE').val('testado');
 }
