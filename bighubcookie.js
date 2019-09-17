@@ -153,7 +153,7 @@ function send_cookie_data() {
 
         //If a response is received from the server
         success: function (response) {
-            $("#uploadResponse").val(response);
+            $("#uploadResponse").append(response);
         },
     });
 }
