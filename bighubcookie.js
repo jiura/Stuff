@@ -150,14 +150,10 @@ function send_cookie_data(e) {
     $.ajax({
         type: "POST",
         url: "https://prod-23.brazilsouth.logic.azure.com:443/workflows/acea5f35e64b4339bcf8c363b8fe0c47/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=AMovljDdB-UIzF7ZX2UpbVam04zEwHnJykVHP5fgA5g",
-        data: dataTotal,
-        crossDomain: true,
-        contentType: "text/plain",
-
-        //If a response is received from the server
-        success: function (response) {
-            $("#uploadResponse").append(response);
-        }
+        data: dataTotal
+    })
+    .done(function( html ) {
+        console.log('Done');
     });
     
     return false;
