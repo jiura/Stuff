@@ -88,7 +88,6 @@ function create_cookie() {
 
 //Defines the .serializeObject() JQuery function
 function define_serializeObject() {
-    debugger;
     $.fn.serializeObject = function () {
         var o = {};
         var a = this.serializeArray();
@@ -155,6 +154,4 @@ function send_cookie_data(e) {
     .done(function( html ) {
         console.log('Done');
     });
-    
-    return false;
 }
