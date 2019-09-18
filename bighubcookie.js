@@ -122,7 +122,7 @@ function send_cookie_data(e) {
     };
 
     var cliente = {
-        cliente: getUrl.host,
+        cliente: "Grupo Zangari",
         site: baseUrl
     };
 
