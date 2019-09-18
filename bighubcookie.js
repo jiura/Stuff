@@ -107,14 +107,12 @@ function define_serializeObject() {
 }
 
 //Sends cookie data to Azure Data Lake through a POST request to a Logic App service
-function send_cookie_data(e) {
-    e.preventDefault();
-    
-    var jsonText = JSON.stringify($('form').serializeObject());
+function send_cookie_data(form) {    
+    var jsonText = JSON.stringify($(form).serializeObject());
     var getUrl = window.location;
     var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
 
-    $('#result').text(JSON.stringify($('form').serializeObject()));
+    $('#result').text(JSON.stringify($(form).serializeObject()));
 
     var cookieData = {
         utm_source: Cookies.get("utm_source"),
@@ -124,7 +122,7 @@ function send_cookie_data(e) {
     };
 
     var cliente = {
-        cliente: "Grupo Zangari",
+        cliente: getUrl.host,
         site: baseUrl
     };
 
@@ -148,6 +146,10 @@ function send_cookie_data(e) {
         type: "POST",
         url: "https://prod-23.brazilsouth.logic.azure.com:443/workflows/acea5f35e64b4339bcf8c363b8fe0c47/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=AMovljDdB-UIzF7ZX2UpbVam04zEwHnJykVHP5fgA5g",
         contentType: "application/json",
-        data: JSON.stringify(dataLake)
+        data: JSON.stringify(dataLake),
+        complete: function () {
+            $(form).off('submit');
+            $(form).submit();
+        }
     });
 }
