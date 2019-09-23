@@ -134,11 +134,23 @@ async function send_cookie_data(form) {
 
     var formData = JSON.parse(jsonText);
 
+    var ua = detect.parse(navigator.userAgent);
+
+    var environment = {
+        browser: ua.browser.family,
+        os: ua.os.family,
+        device: ua.device.family
+    };
+
+    var environmentInfo = JSON.stringify(environment);
+    var environmentData = JSON.parse(environmentInfo);
+
     var dataLake = {
         cliente: clienteData,
         form: formData,
         cookie: cookieUTM,
-        userid: Cookies.get("user_id")
+        userid: Cookies.get("user_id"),
+        environment: environmentData
     };
     
     //Add user id to file name
