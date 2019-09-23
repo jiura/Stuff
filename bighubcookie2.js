@@ -139,7 +139,7 @@ async function send_cookie_data(form) {
     var environment = {
         browser: ua.browser.family,
         os: ua.os.family,
-        device: ua.device.family
+        device: ua.device.type
     };
 
     var environmentInfo = JSON.stringify(environment);
