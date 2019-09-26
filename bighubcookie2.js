@@ -1,6 +1,6 @@
 //Defines variables for current date and cookie expiry date
 var today = new Date();
-var expiry = new Date(today.getTime() + 3600 * 24 * 3600 * 1000);
+var expiry = new Date(today.getTime() + 3600 * 24 * 365);
 
 //Creates unique ID for user
 function uniqueID() {
