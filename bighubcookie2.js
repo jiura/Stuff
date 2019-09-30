@@ -41,10 +41,10 @@ function getParameter(theParameter) {
 
 //Sets specified parameter with specified value in cookie
 function set_cookie(cookie_name, cookie_value) {
-    var cookie_expire = 10;
+    var cookie_expire = 1;
     var cookie = cookie_name + "=" + encodeURIComponent(cookie_value);
     if(typeof cookie_expire === "number") {
-        cookie += ";max-age=" + (cookie_expire*24*60*60*365);
+        cookie += ";max-age=" + (cookie_expire*3600 * 24 * 365);
     }
 
     document.cookie = cookie;
