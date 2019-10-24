@@ -122,7 +122,7 @@ async function send_cookie_data(form) {
     };
 
     var cliente = {
-        cliente: getUrl.host,
+        cliente: getUrl.host.split('.')[0],
         site: baseUrl
     };
 
@@ -150,6 +150,7 @@ async function send_cookie_data(form) {
         form: formData,
         cookie: cookieUTM,
         userid: Cookies.get("user_id"),
+        foldername: getUrl.host.split('.')[0],
         environment: environmentData
     };
     
