@@ -150,7 +150,7 @@ async function send_cookie_data(form) {
         form: formData,
         cookie: cookieUTM,
         userid: Cookies.get("user_id"),
-        foldername: getUrl.host.split('.')[0],
+        foldername: getUrl.host,
         environment: environmentData
     };
     
