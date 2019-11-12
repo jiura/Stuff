@@ -145,12 +145,17 @@ async function send_cookie_data(form) {
     var environmentInfo = JSON.stringify(environment);
     var environmentData = JSON.parse(environmentInfo);
 
+    if (getUrl.host.split('.')[0] == 'www')
+        folderName = getUrl.host.split('.')[1];
+    else
+        folderName = getUrl.host.split('.')[0];
+
     var dataLake = {
         cliente: clienteData,
         form: formData,
         cookie: cookieUTM,
         userid: Cookies.get("user_id"),
-        foldername: getUrl.host.split('.')[0],
+        foldername: folderName,
         environment: environmentData
     };
     
