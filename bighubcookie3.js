@@ -107,7 +107,7 @@ function define_serializeObject() {
 }
 
 //Sends cookie data to Azure Data Lake through a POST request to a Logic App service
-async function send_cookie_data(form) {    
+async function send_cookie_data(form) {
     var jsonText = JSON.stringify(jQuery(form).serializeObject());
     var getUrl = window.location;
     var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
@@ -121,8 +121,13 @@ async function send_cookie_data(form) {
         utm_term: Cookies.get("utm_term")
     };
 
+    if (getUrl.host.split('.')[0] == 'www')
+        CLIENTE = getUrl.host.split('.')[1];
+    else
+        CLIENTE = getUrl.host.split('.')[0];
+
     var cliente = {
-        cliente: getUrl.host.split('.')[0],
+        cliente: CLIENTE,
         site: baseUrl
     };
 
