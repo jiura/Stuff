@@ -121,7 +121,7 @@ async function send_cookie_data(form) {
         utm_term: Cookies.get("utm_term")
     };
 
-    if (getUrl.host.split('.')[0] == 'www')
+    if (getUrl.host.split('.')[0] == 'www' || getUrl.host.split('.')[0] == 'm')
         CLIENTE = getUrl.host.split('.')[1];
     else
         CLIENTE = getUrl.host.split('.')[0];
