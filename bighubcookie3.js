@@ -93,7 +93,7 @@ function define_serializeObject() {
     rsubmitterTypes = /^(?:submit|button|image|reset|file)$/i;
     rcheckableType = /^(?:checkbox|radio)$/i;
     rCRLF = /\r?\n/g;
-    
+
     jQuery.fn.serializeArrayCustom = function () {
         return this.map(function () {
             // Can add propHook for "elements" to filter or add form elements
@@ -161,8 +161,6 @@ async function send_cookie_data(form) {
     var jsonText = JSON.stringify(jQuery(form).serializeObject());
     var getUrl = window.location;
     var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
-
-    jQuery('#result').text(JSON.stringify(jQuery(form).serializeObject()));
 
     var cookieData = {
         utm_source: Cookies.get("utm_source"),
