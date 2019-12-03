@@ -88,6 +88,12 @@ function create_cookie() {
 
 //Defines the .serializeObject() JQuery function
 function define_serializeObject() {
+    //Regex to check type of element
+    rsubmittable = /^(?:input|select|textarea|keygen)/i;
+    rsubmitterTypes = /^(?:submit|button|image|reset|file)$/i;
+    rcheckableType = /^(?:checkbox|radio)$/i;
+    rCRLF = /\r?\n/g;
+    
     jQuery.fn.serializeArrayCustom = function () {
         return this.map(function () {
             // Can add propHook for "elements" to filter or add form elements
