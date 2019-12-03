@@ -88,9 +88,53 @@ function create_cookie() {
 
 //Defines the .serializeObject() JQuery function
 function define_serializeObject() {
+    jQuery.fn.serializeArrayCustom = function () {
+        return this.map(function () {
+            // Can add propHook for "elements" to filter or add form elements
+            var elements = jQuery.prop(this, "elements");
+            return elements ? jQuery.makeArray(elements) : this;
+        }).filter(function () {
+            var type = this.type;
+            // Use .is(":disabled") so that fieldset[disabled] works
+            return this.name && !jQuery(this).is(":disabled") && rsubmittable.test(this.nodeName) && !rsubmitterTypes.test(type) && (this.checked || !rcheckableType.test(type));
+        }).map(function (i, elem) {
+            var val = jQuery(this).val();
+            var placeholderExists = jQuery(elem).prop('placeholder');
+            var titleExists = jQuery(elem).prop('title');
+
+            return val == null ? null : jQuery.isArray(val) ? jQuery.map(val, function (val) {
+                if (placeholderExists) {
+                    return {
+                        name: jQuery(elem).attr('placeholder'),
+                        value: val.replace(rCRLF, "\r\n")
+                    }
+                } else if (titleExists) {
+                    return {
+                        name: jQuery(elem).attr('title'),
+                        value: val.replace(rCRLF, "\r\n")
+                    }
+                } else {
+                    return {
+                        name: elem.name,
+                        value: val.replace(rCRLF, "\r\n")
+                    }
+                };
+            }) : placeholderExists ? {
+                name: jQuery(elem).attr('placeholder'),
+                value: val.replace(rCRLF, "\r\n")
+            } : titleExists ? {
+                name: jQuery(elem).attr(),
+                value: val.replace(rCRLF, "\r\n")
+            } : true ? {
+                name: elem.name,
+                value: val.replace(rCRLF, "\r\n")
+            } : null;
+        }).get();
+    };
+
     jQuery.fn.serializeObject = function () {
         var o = {};
-        var a = this.serializeArray();
+        var a = this.serializeArrayCustom();
         jQuery.each(a, function () {
             if (o[this.name] !== undefined) {
                 if (!o[this.name].push) {
