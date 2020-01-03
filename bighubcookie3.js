@@ -204,7 +204,8 @@ async function send_cookie_data(form) {
         cookie: cookieUTM,
         userid: Cookies.get("user_id"),
         foldername: CLIENTE,
-        environment: environmentData
+        environment: environmentData,
+        accessdate: today
     };
     
     //Add user id to file name
