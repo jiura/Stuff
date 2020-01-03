@@ -156,6 +156,65 @@ function define_serializeObject() {
     };
 }
 
+async function send_formless_data() {
+    var getUrl = window.location;
+    var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+
+    var cookieData = {
+        utm_source: Cookies.get("utm_source"),
+        utm_medium: Cookies.get("utm_medium"),
+        utm_campaign: Cookies.get("utm_campaign"),
+        utm_term: Cookies.get("utm_term")
+    };
+
+    if (getUrl.host.split('.')[0] == 'www' || getUrl.host.split('.')[0] == 'm')
+        CLIENTE = getUrl.host.split('.')[1];
+    else
+        CLIENTE = getUrl.host.split('.')[0];
+
+    var cliente = {
+        cliente: CLIENTE,
+        site: baseUrl
+    };
+
+    var jsonCookie = JSON.stringify(cookieData);
+    var cookieUTM = JSON.parse(jsonCookie);
+
+    var clienteInfo = JSON.stringify(cliente);
+    var clienteData = JSON.parse(clienteInfo);
+
+    var formData = JSON.parse(jsonText);
+
+    var ua = detect.parse(navigator.userAgent);
+
+    var environment = {
+        browser: ua.browser.family,
+        os: ua.os.family,
+        device: ua.device.type
+    };
+
+    var environmentInfo = JSON.stringify(environment);
+    var environmentData = JSON.parse(environmentInfo);
+
+    var dataLake = {
+        cliente: clienteData,
+        form: {},
+        cookie: cookieUTM,
+        userid: Cookies.get("user_id"),
+        foldername: CLIENTE,
+        environment: environmentData,
+        accessdate: today
+    };
+    
+    //Add user id to file name
+    await jQuery.ajax({
+        type: "POST",
+        url: "https://prod-26.brazilsouth.logic.azure.com:443/workflows/e0aff7699ddd4a759df160f87c53eebb/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=FhWDDGhtTvSfS2xY7dQrb1Rnp4k4RuEjnQ5HQIkGY2k",
+        contentType: "application/json",
+        data: JSON.stringify(dataLake)
+    });
+}
+
 //Sends cookie data to Azure Data Lake through a POST request to a Logic App service
 async function send_cookie_data(form) {
     var jsonText = JSON.stringify(jQuery(form).serializeObject());
