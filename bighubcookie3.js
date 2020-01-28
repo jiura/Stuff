@@ -203,7 +203,8 @@ async function send_formless_data() {
         userid: Cookies.get("user_id"),
         foldername: CLIENTE,
         environment: environmentData,
-        accessdate: today
+        accessdate: today,
+	type: "access"
     };
     
     //Add user id to file name
@@ -264,7 +265,8 @@ async function send_cookie_data(form) {
         userid: Cookies.get("user_id"),
         foldername: CLIENTE,
         environment: environmentData,
-        accessdate: today
+        accessdate: today,
+	type: "submit"
     };
     
     //Add user id to file name
